@@ -1,0 +1,5 @@
+-----> Improve the search filters
+-----> Improve the front end
+-----> Add whilist page
+-----> Add author
+-----> Add publisher

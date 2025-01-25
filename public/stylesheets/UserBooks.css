@@ -1,0 +1,78 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f4f4f4;
+    color: #333;
+}
+
+header {
+    background: #1e293b;
+    color: #fff;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.book-section {
+    text-align: center;
+}
+
+.actions {
+    margin: 20px 0;
+}
+
+button {
+    background-color: #1e293b;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #1e293b;
+    color: red;
+}
+
+#book-content {
+    margin-top: 20px;
+    text-align: left;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.hidden {
+    display: none;
+}
+
+footer {
+    margin: 20px;
+    text-align: center;
+}
+
+footer a {
+    background-color: #1e293b;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+footer a:hover {
+    background-color: #4b5563;
+}

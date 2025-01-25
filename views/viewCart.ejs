@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookstore Shopping Cart</title>
+    <link rel="stylesheet" href="/stylesheets/cart.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Shopping Cart</h1>
+        <div id="cart-items">
+            <% if(bookDetailsList.length > 0) { %>
+                <% bookDetailsList.forEach(function(item) { %>
+                    <div class="cart-item">
+                        <div>
+                            <img src="<%= item.image %>" alt="<%= item.title %>">
+                            <span> <%= item.title %> </span>
+                        </div>
+                        <div>
+                            <span>$ <%= item.price.toFixed(2) %></span>
+                            <button onclick="removeItem(`<%= item.id %>`)">Remove</button>
+                        </div>
+                    </div>
+                <% }); %>
+        </div>
+        <div class="total">Total:$<span id="total-price"><%= totalAmount.toFixed(2) %></span></div>
+        <% } else { %>
+            <span>Your cart is empty</span>
+        <% }%>
+        <a href="/checkout" class="payment-btn" onclick="proceedToPayment(event)">Proceed to Payment</a>
+        <footer>
+            <a href="/">Back to home page</a>
+        </footer>
+    </div>
+
+    
+    <script>
+        const cart = <%- JSON.stringify(bookDetailsList) %>;  // Convert bookDetailsList to JSON string
+        console.log(cart);
+        function updateCart() {
+            window.location.reload();
+        }
+
+        function removeItem(id) {
+            window.location.href = `/deletCartItem/${id}`;
+        }
+
+        function proceedToPayment(event) {
+            event.preventDefault();
+            if ("<%= totalAmount %>" == 0) {
+                alert('Your cart is empty!');
+            } else {
+                window.open('/checkout', '_blank');
+            }
+        }
+
+        //updateCart();
+    </script>
+</body>
+
+</html>

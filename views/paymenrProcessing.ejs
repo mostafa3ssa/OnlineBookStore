@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Processing</title>
+    <link rel="stylesheet" href="/stylesheets/payment.css">
+</head>
+
+<body>
+    <div class="payment-container">
+        <h2>Payment Processing</h2>
+        <div class="form-group">
+            <label for="bank-select">Select Your Bank</label>
+            <select id="bank-select">
+                <option value="">-- Select Bank --</option>
+                <% banks.forEach(function(bank) { %>
+                    <option value="<%= bank._id %>"><%= bank.bankName %></option>
+                <% });%>
+            </select>
+        </div>
+        <div id="card-info" style="display: none;">
+            <div class="form-group">
+                <label for="card-number">Card Number</label>
+                <input type="text" id="card-number" placeholder="1234 5678 9012 3456">
+            </div>
+            <div class="form-group">
+                <label for="expiry-date">Expiry Date</label>
+                <input type="text" id="expiry-date" placeholder="MM/YY">
+            </div>
+            <div class="form-group">
+                <label for="cvv">CVV</label>
+                <input type="text" id="cvv" placeholder="123">
+            </div>
+        </div>
+        <button class="submit-btn" onclick="processPayment()">Pay Now</button>
+        <div id="status-message" class="status-message"></div>
+    </div>
+
+    <script>
+        const bankSelect = document.getElementById('bank-select');
+        const cardInfo = document.getElementById('card-info');
+
+        bankSelect.addEventListener('change', () => {
+            if (bankSelect.value) {
+                cardInfo.style.display = 'block';
+            } else {
+                cardInfo.style.display = 'none';
+            }
+        });
+
+        function processPayment() {
+            const cardNumber = document.getElementById('card-number').value;
+            const expiryDate = document.getElementById('expiry-date').value;
+            const cvv = document.getElementById('cvv').value;
+            const bankSelect = document.getElementById('bank-select').value;
+            const statusMessage = document.getElementById('status-message');
+
+            // Validate fields
+            if (!bankSelect || !cardNumber || !expiryDate || !cvv) {
+                statusMessage.textContent = 'Please fill in all fields.';
+                statusMessage.className = 'status-message error';
+                return;
+            }
+
+            statusMessage.textContent = 'Processing payment...';
+            statusMessage.className = 'status-message';
+
+            // Simulate an immediate success or failure decision
+            const isSuccess = true;
+
+            setTimeout(() => {
+                if (isSuccess) {
+                    statusMessage.textContent = 'Payment successful!';
+                    statusMessage.className = 'status-message success';
+                } else {
+                    statusMessage.textContent = 'Payment failed. Please try again.';
+                    statusMessage.className = 'status-message error';
+                }
+
+                // Proceed with sending the POST request
+                const paymentData = {
+                    bank: bankSelect,
+                    cardNumber,
+                    expiryDate,
+                    cvv
+                };
+
+                fetch('/addOrder', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(paymentData)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Server response:', data);
+                        // Optional: Handle server response here if needed
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        // Optional: Handle any errors in the POST request
+                    });
+            }, 2000); // Simulate a 2-second delay before showing success or failure
+        }
+
+    </script>
+</body>
+
+</html>

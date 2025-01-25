@@ -1,0 +1,92 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: linear-gradient(135deg, #74ebd5, #9face6);
+    color: #333333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.support-container {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 600px;
+    padding: 20px 30px;
+    text-align: center;
+    animation: slideIn 1s ease-out;
+}
+
+.support-container h2 {
+    color: #444444;
+    margin-bottom: 15px;
+}
+
+.support-container p {
+    margin-bottom: 20px;
+    color: #666666;
+}
+
+.support-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.support-container input,
+.support-container textarea,
+.support-container button,
+.support-container select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.support-container input:focus,
+.support-container textarea:focus,
+.support-container select:focus {
+    border-color: #ff7e5f;
+    box-shadow: 0 0 5px rgba(255, 126, 95, 0.5);
+}
+
+.support-container textarea {
+    resize: none;
+    height: 100px;
+}
+
+.support-container button {
+    background: #2575fc;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.support-container button:hover {
+    background: #1b5dcc;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hidden {
+    display: none;
+}

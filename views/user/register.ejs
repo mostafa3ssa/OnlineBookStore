@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/register.css">
+    <title>Registration Form</title>
+</head>
+
+<body>
+    <div class="form-container">
+        <h2>Register</h2>
+        <form id="registrationForm" action="http://localhost:3000/user/register" method="post">
+            <div class="userinfo">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" required>
+            </div>
+            <div class="userinfo">
+                <label for="secondName">Last Name</label>
+                <input type="text" id="secondName" name="lastName" placeholder="Enter your last name" required>
+            </div>
+            <div class="userinfo">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="userinfo">
+                <label for="phone">Phone</label>
+                <input type="text" id="phone" name="phone" placeholder="Enter your phone" required>
+            </div>
+            <div class="userinfo">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="pass" placeholder="Enter your password" required>
+            </div>
+            <div class="userinfo">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirmPass" placeholder="Confirm your password"
+                    required>
+            </div>
+            <button type="submit">Create Account</button>
+            <div class="login-page">
+                <p>Already have an account?
+                    <a href="/user/login">Login</a>
+                </p>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        
+    </script>
+</body>
+
+</html>

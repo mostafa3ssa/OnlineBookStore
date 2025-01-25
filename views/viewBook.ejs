@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Book Details</title>
+    <link rel="stylesheet" href="/stylesheets/book.css">
+</head>
+
+<body>
+    <h1>Book Details</h1>
+
+    <div class="book-detail">
+        <img src="/images/photoBook.jpeg" alt="Book Cover">
+        <div class="book-content">
+            <p><strong>Title:</strong> <span id="book-title"><%= title %></span></p>
+            <p><strong>Price:</strong> $<span id="book-price"><%= price %></span></p>
+            <p><strong>Author:</strong> <span id="book-author"><%= author %></span></p>
+            <p><strong>Genre:</strong> <span id="book-genre"><%= genre %></span></p>
+            <p><strong>Description:</strong> <span id="book-description"><%= description %></span></p>
+
+            <div class="book-categories">
+                <% categories.forEach(function(category) { %>
+                    <span class="category-tag" onclick='searchCategory("<%= encodeURIComponent(category) %>")'>
+                        <%= category %>
+                    </span>
+                    <% }); %>
+            </div>
+            <a href="#" onclick="addToCart()" id="add"><%= status %></a>
+        </div>
+
+        
+    </div>
+
+    <div class="comments-section">
+        <h2>Comments</h2>
+        <textarea id="commentInput" rows="4" placeholder="Write your comment here..."></textarea>
+        <button onclick="addComment()">Add Comment</button>
+        
+        <ul id="commentsList">
+            <% reviews.forEach(function(comment) { %>
+                <li>
+                    <p><strong>
+                            <%= comment.name %>
+                        </strong> (<%= new Date(comment.date).toLocaleString() %>):</p>
+                    <p>
+                        <%= comment.text %>
+                    </p>
+                </li>
+                <% }); %>
+        </ul>
+    </div>
+
+    <footer>
+        <a href="/">Back to home page</a>
+    </footer>
+
+
+</body>
+
+<script>
+    const bookData = {
+        bookId: "<%= bookId %>",
+        userId: "<%= userId %>",
+        title: "<%= title %>",
+        imageUrl: "<%= imageUrl %>",
+        author: "<%= author %>",
+        genre: "<%= genre %>",
+        price: "<%= price %>",
+        description: "<%= description %>",
+        status: "<%= status %>"
+    };
+
+    console.log("Book Data:", bookData);
+    const el = document.querySelector('a');
+    console.log(el);
+    console.log(bookData.status);
+    if (bookData.status !== "Add to Cart") {
+        el.classList.add('disabled');
+        el.onclick = null;
+    }
+    else {
+        console.log("YOU ARE DONE");
+        el.classList.remove('disabled');
+        el.onclick = addToCart; // Restore onclick event
+    }
+
+    function addToCart() {
+        window.location.href = `/addCartItem/${bookData.bookId}`;
+        if(bookData.userId)
+            alert('The book has been added to your cart.');
+    }
+
+    function searchCategory(categoryName) {
+        window.location.href = `/searchCategory/${categoryName}`;
+    }
+
+    function addComment() {
+        const commentInput = document.getElementById('commentInput');
+        const commentsList = document.getElementById('commentsList');
+
+        const commentText = commentInput.value;
+        if (!commentText) {
+            alert('Please write a comment before submitting.');
+            return;
+        }
+        console.log("the text is: ");
+        console.log(commentText);
+        const commentData = {
+            bookId: bookData.bookId,
+            text: commentText
+        };
+        console.log("the text is: ");
+        console.log(commentData);
+        // Sending comment to the server
+        fetch('/addComment', {
+            method: 'POST',
+            body: JSON.stringify(commentData),
+            headers: { 'Content-Type': 'application/json' },
+        }).then(response => {
+            if (response.redirected) {
+                window.location.href = response.url;
+            }
+        });
+    }
+</script>
+
+</html>

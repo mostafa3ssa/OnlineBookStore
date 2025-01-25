@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Book Page</title>
+    <link rel="stylesheet" href="/stylesheets/UserBooks.css">
+</head>
+
+<body>
+    <header>
+        <h1>User Books Page</h1>
+    </header>
+
+    <main>
+        <% if(books.length) { %>
+
+        <% books.forEach(function(item) { %>
+            <div class="book-section">
+                <h2>Book Title: <%= item.title %>
+                </h2>
+                <p>Author: <%= item.author %>
+                </p>
+                <div class="actions">
+                    <button onclick="readBook('/pdfs/SWEBook.pdf', this)">Read Book</button>
+                    <button onclick="printBook('/pdfs/SWEBook.pdf')">Print Book</button>
+                </div>
+                <div id="book-content-<%= item._id %>" class="hidden book-content">
+                    <iframe src="" width="100%" height="600px" style="border: none;"></iframe>
+                </div>
+            </div>
+            <hr>
+        <% }); %>
+
+        <% } else {%>
+
+        <h3>You have not purhcased any books.</h3>
+
+        <% } %>
+    </main>
+
+    <footer>
+        <a href="/">Back to Home</a>
+    </footer>
+
+    <script>
+        function readBook(fileUrl, buttonElement) {
+            fileUrl = decodeURIComponent(fileUrl);
+
+            // Get the parent book content div
+            const bookSection = buttonElement.closest('.book-section');
+            const bookContent = bookSection.querySelector('.book-content');
+            const iframe = bookContent.querySelector('iframe');
+
+            if (bookContent.classList.contains('hidden')) {
+                // Open the book
+                iframe.src = fileUrl;
+                bookContent.classList.remove('hidden');
+                buttonElement.textContent = 'Close Book'; // Change button text
+                alert('The book is now open!');
+            } else {
+                // Close the book
+                bookContent.classList.add('hidden');
+                iframe.src = ''; // Clear the iframe source
+                buttonElement.textContent = 'Read Book'; // Reset button text
+                alert('The book is now closed.');
+            }
+        }
+
+        function printBook(fileUrl) {
+            fileUrl = decodeURIComponent(fileUrl);
+            // Open the PDF in a new tab for printing
+            const newWindow = window.open(fileUrl, '_blank');
+            if (newWindow) {
+                newWindow.print();
+            } else {
+                alert('Please allow pop-ups for printing the book.');
+            }
+        }
+    </script>
+
+</body>
+
+</html>

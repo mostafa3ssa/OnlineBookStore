@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Support</title>
+    <link rel="stylesheet" href="/stylesheets/support.css">
+
+</head>
+
+<body>
+    <div class="support-container">
+        <h2>Customer Support</h2>
+        <p>We’re here to help! Please select your reason for contacting us below.</p>
+        <form id="support-form" action="http://localhost:3000/sendIssue" method="post">
+            <select id="support-reason" required name="type">
+                <option value="" disabled selected>Select a reason</option>
+                <option value="issue">I have an issue</option>
+                <option value="message">I want to send a message</option>
+            </select>
+            <div id="issue-field" style="display: none;">
+                <textarea name="issue" placeholder="Describe your issue" required></textarea>
+            </div>
+            <div id="message-field" style="display: none;">
+                <textarea name="message" placeholder="Write your message" required></textarea>
+            </div>
+            <input type="text" name="name" placeholder="Your name" required>
+            <input type="email" name="email" placeholder="Your email" required>
+            <input type="number" name="phone" placeholder="Enter your phone" required>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        const supportReason = document.getElementById('support-reason');
+        const issueField = document.getElementById('issue-field');
+        const messageField = document.getElementById('message-field');
+
+        supportReason.addEventListener('change', () => {
+            if (supportReason.value === 'issue') {
+                issueField.style.display = 'block';
+                issueField.querySelector('textarea').disabled = false;
+                messageField.style.display = 'none';
+                messageField.querySelector('textarea').disabled = true;
+            } else if (supportReason.value === 'message') {
+                issueField.style.display = 'none';
+                issueField.querySelector('textarea').disabled = true;
+                messageField.style.display = 'block';
+                messageField.querySelector('textarea').disabled = false;
+            }
+        });
+    </script>
+</body>
+
+</html>

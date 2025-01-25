@@ -1,0 +1,91 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #74ebd5, #9face6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.form-container {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease-in-out;
+    width: 319px;
+}
+
+.form-container h2 {
+    margin-bottom: 20px;
+    color: #1d1616;
+    text-align: center;
+}
+
+.form-container .userinfo {
+    margin-bottom: 15px;
+}
+
+.form-container .userinfo label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555555;
+}
+
+.form-container .userinfo input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.form-container .userinfo input:focus {
+    border-color: #2575fc;
+    box-shadow: 0 0 5px rgba(37, 117, 252, 0.5);
+}
+
+.form-container button {
+    width: 100%;
+    padding: 10px;
+    background: #2575fc;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s ease;
+}
+
+.form-container button:hover {
+    background: #1b5dcc;
+}
+
+.login-page p {
+    text-transform: capitalize;
+    text-align: center;
+
+}
+
+.login-page:hover {
+    color: #a41515;
+
+}
+
+.login-page a:hover {
+    color: blueviolet;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background-color: #4caf50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .user-card {
+            border-bottom: 1px solid #ddd;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .user-card:last-child {
+            border-bottom: none;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #4caf50;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .user-info h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .user-info p {
+            margin: 5px 0 0;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>All Users</h1>
+        </div>
+        <% if (users && users.length> 0) { %>
+            <% users.forEach(user=> { %>
+                <div class="user-card">
+                    <div class="user-avatar">
+                        
+                    </div>
+                    <div class="user-info">
+                        <h3>
+                            <%= user.firstName %>
+                                <%= user.firstName %>
+                        </h3>
+                        <p>Email: <%= user.email %>
+                        </p>
+                        <p>Phone: <%= user.phone %>
+                        </p>
+                    </div>
+                </div>
+                <% }) %>
+                    <% } else { %>
+                        <div style="padding: 20px; text-align: center;">
+                            <p>No users found.</p>
+                        </div>
+                        <% } %>
+    </div>
+</body>
+
+</html>

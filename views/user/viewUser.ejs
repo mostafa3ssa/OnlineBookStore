@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: linear-gradient(135deg, #74ebd5, #9face6); /* Gradient background */
+            color: #333333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .profile-container {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+            padding: 25px 30px;
+            text-align: center;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .profile-container h2 {
+            color: #444444;
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .profile-container .user-info {
+            text-align: left;
+            margin: 15px 0;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .profile-container .user-info label {
+            font-weight: bold;
+            font-size: 14px;
+            color: #444444;
+        }
+
+        .profile-container .user-info span {
+            display: block;
+            font-size: 16px;
+            color: #333333;
+            margin-top: 5px;
+        }
+
+        .profile-container .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+            align-items: center;
+        }
+
+        .profile-container button {
+            padding: 10px 15px;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            width: 100%;
+            max-width: 200px;
+        }
+
+        .logout-btn {
+            background: #ff4d4d; /* Red background for logout */
+        }
+
+        .logout-btn:hover {
+            background: #cc0000; /* Darker red on hover */
+        }
+
+        .home-btn {
+            background: #6c757d; /* Gray background for "Back to Home" */
+        }
+
+        .home-btn:hover {
+            background: #5a6268; /* Darker gray on hover */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="profile-container">
+        <h2>User Profile</h2>
+        <div class="user-info">
+            <label>First Name:</label>
+            <span><%= user.firstName %></span>
+        </div>
+        <div class="user-info">
+            <label>Last Name:</label>
+            <span><%= user.lastName %></span>
+        </div>
+        <div class="user-info">
+            <label>Email:</label>
+            <span><%= user.email %></span>
+        </div>
+        <div class="user-info">
+            <label>Phone:</label>
+            <span><%= user.phone %></span>
+        </div>
+        <div class="button-container">
+            <form action="http://localhost:3000/user/logout" method="POST">
+                <button type="submit" class="logout-btn">Logout</button>
+            </form>
+            <button onclick="window.location.href='/'" class="home-btn">Back to Home</button>
+        </div>
+    </div>
+</body>
+
+</html>
+
+

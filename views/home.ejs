@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Bookstore</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/stylesheets/home.css">
+</head>
+
+<body>
+    <header>
+        <div class="menu-toggle" id="menu-toggle">
+            <span class="hamborger"></span>
+            <span class="hamborger"></span>
+            <span class="hamborger"></span>
+        </div>
+
+        <div class="auth-icons">
+            <i class="fas fa-home home-icon" onclick="navigate('/')" title="Home"></i>
+            <% if (user) { %>
+                <!-- Show User Profile button if logged in -->
+                <i onclick="navigate(`/user/profile/<%= user %>`)">User Profile</i>
+            <% } else { %>
+                <!-- Show Login and Sign-Up buttons if not logged in -->
+                <i onclick="navigate('/user/login')">Login</i>
+                <i onclick="navigate('/user/register')">Sign Up</i>
+            <% } %>
+        </div>
+    </header>
+ 
+    <div class="menu" id="menu">
+        <a href="/contactSupport">Customer Support</a>
+        <a href="/viewCart">My Cart</a>
+        <a href="/viewUserBooks">User Books</a>
+        <a href="/notifications">Notifications</a>
+    </div>
+
+    <section class="search-bar">
+        <input type="text" id="search" placeholder="Search for books...">
+        <button onclick="searchBooks()">Search</button>
+    </section>
+    <hr>
+    <section id="lower">
+        <br>
+        <h1 id="bookstore-books"><%= pageTitle %></h1>
+        <div class="container">
+            <% if (books && books.length) { %>
+                <% books.forEach(function(item) { %>
+                    <div class="book">
+                        <img src="/images/photoBook.jpeg" alt="<%= item.title %>">
+                        <h3 class="BookName">
+                            <%= item.title %>
+                        </h3>
+                        <a href="#" onclick="navigateToBookPage('<%= item._id %>')">Book Details</a>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <h3>We cannot find any books</h3>
+            <% } %>
+        </div>
+    </section>
+    <hr>
+    <section id="Ranking">
+        <h1 id="Rank">User Rankings</h1>
+
+        <div class="ranking-form">
+            <label for="comment">Your Comment:</label>
+            <textarea id="comment" rows="4" placeholder="Write your comment..."></textarea>
+
+            <label for="stars">Star Rating:</label>
+            <select id="stars">
+                <option value="5">5 Stars</option>
+                <option value="4">4 Stars</option>
+                <option value="3">3 Stars</option>
+                <option value="2">2 Stars</option>
+                <option value="1">1 Star</option>
+            </select>
+
+            <button onclick="addRanking()">Add</button>
+        </div>
+
+        <ul class="ranking-list" id="rankingList">
+            <% rankings.forEach(ranking=> { %>
+                <li>
+                    <div class="stars">
+                        <%- '&#9733;' .repeat(ranking.rating) + '&#9734;' .repeat(5 - ranking.rating) %>
+                    </div>
+                    <p><strong>
+                            <%= ranking.userName %>
+                        </strong>: <%= ranking.text %>
+                    </p>
+                    <small>
+                        <%= new Date(ranking.date).toLocaleString() %>
+                    </small>
+                </li>
+                <% }); %>
+        </ul>
+
+    </section>
+    <footer>
+        <p>&copy; 2025 Online Bookstore Mostafa Essa.</p>
+    </footer>
+
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const menu = document.getElementById('menu');
+
+        menuToggle.addEventListener('click', () => {
+            menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        function navigate(url) {
+            window.location.href = url;
+        }
+
+        function searchBooks() {
+            const query = document.getElementById('search').value.trim();
+            if (query) {
+                // Redirect to the search route with the query as a parameter
+                window.location.href = `/search?q=${encodeURIComponent(query)}`;
+            } else {
+                alert('Please write something!');
+            }
+        }
+
+        function navigateToBookPage(bookNumber) {
+            window.location.href = `/viewBook/${bookNumber}`;
+        }
+
+        async function addRanking() {
+            const comment = document.getElementById('comment').value;
+            const stars = document.getElementById('stars').value;
+
+            if (!comment) {
+                alert('Please write a comment!');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:3000/addRanking', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ comment, stars })
+                }); 
+ 
+                if (response.ok) {
+                    alert('Your ranking has been added!');
+                    location.reload();
+                } else {
+                    window.location.href = "http://localhost:3000/user/login";
+                }
+            } catch (error) {
+                console.error('Error adding ranking:', error);
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

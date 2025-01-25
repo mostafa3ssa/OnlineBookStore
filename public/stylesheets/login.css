@@ -1,0 +1,90 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #74ebd5, #9face6);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.container {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    animation: fadeIn 1.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.container h2 {
+    margin-bottom: 1rem;
+    color: #333;
+    text-align: center;
+}
+
+.userinfo {
+    margin-bottom: 1rem;
+}
+
+.userinfo label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #666;
+}
+
+.userinfo input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.userinfo input:focus {
+    border-color: #74ebd5;
+}
+
+.btn {
+    width: 100%;
+    padding: 0.7rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #74ebd5;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #5fc0bb;
+}
+
+.create-account {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.create-account a {
+    text-decoration: none;
+    color: #74ebd5;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.create-account a:hover {
+    color: #5fc0bb;
+}

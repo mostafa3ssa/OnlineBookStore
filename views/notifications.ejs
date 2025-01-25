@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications</title>
+    <link rel="stylesheet" href="/stylesheets/notificate.css">
+
+</head>
+
+<body>
+    <header>
+        Notifications
+    </header>
+    <main>
+        <div id="notifications">
+            <!-- هنضيف هنا النوتيفيكيشن -->
+        </div>
+
+        <div class="actions">
+            <button onclick="markAllRead()">Mark All as Read</button>
+            <button onclick="clearNotifications()">Clear All Notifications</button>
+        </div>
+
+        <div class="back-home">
+            <button onclick="navigateToHome()">Back to Home</button>
+        </div>
+    </main>
+
+    <script>
+        const notifications = <%- JSON.stringify(notifications) %>;
+
+        function displayNotifications() {
+            const container = document.getElementById('notifications');
+            container.innerHTML = '';
+
+            if (notifications.length === 0) {
+                container.innerHTML = '<p>No notifications available.</p>';
+                return;
+            }
+
+            notifications.forEach(notification => {
+                const notificationDiv = document.createElement('div');
+                notificationDiv.className = `notification ${notification.isRead ? '' : 'unread'}`;
+
+                const text = document.createElement('p');
+                text.textContent = notification.notificationText;
+
+
+                const date = document.createElement('p');
+                date.className = 'notification-date';
+                date.textContent = `Date: ${new Date(notification.notificationDate).toLocaleString()}`;
+
+                const markReadButton = document.createElement('button');
+                markReadButton.textContent = 'Mark as Read';
+                markReadButton.onclick = () => markAsRead(notification._id);
+
+                notificationDiv.appendChild(text);
+                notificationDiv.appendChild(date);
+                if (!notification.isRead) {
+                    notificationDiv.appendChild(markReadButton);
+                }
+
+                container.appendChild(notificationDiv);
+            });
+        }
+
+        function markAsRead(id) {
+            window.location.href = `/makeRead/${id}`;
+        }
+
+        function markAllRead() {
+            notifications.forEach(notification => {
+                markAsRead(notification._id);
+            });
+            displayNotifications();
+        }
+
+        function clearNotifications() {
+            if(notifications.length == 0) {
+                alert("You have not any notifications");
+            }
+            while (notifications.length > 0) {
+                notifications.pop();
+            }
+            window.location.href = '/removeNotifications';
+            displayNotifications();
+        }
+
+        function navigateToHome() {
+            window.location.href = './';
+        }
+
+        displayNotifications();
+    </script>
+</body>
+
+</html>
