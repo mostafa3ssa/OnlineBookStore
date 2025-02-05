@@ -12,7 +12,7 @@ An online platform for browsing, purchasing, and managing books with user-friend
 
 ## Technologies Used
 - **Frontend**: HTML, CSS, JavaScript
-- **Backend**: Node.js, Express
+- **Backend**: Node.js, Express.js
 - **Database**: MongoDB
 - **Authentication**: bcrypt (for password hashing), Express-session (for session management)
 
